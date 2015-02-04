@@ -1,4 +1,4 @@
-command: "lighthouse.widget/lighthouse.sh && cat /Users/mimes/Dropbox/Application\\ Support/--Scripts--/bash/pivotal_people.output"
+command: "links.widget/lighthouse.widget/lighthouse.sh && cat /Users/mimes/Dropbox/Application\\ Support/--Scripts--/bash/pivotal_people.output"
 
 refreshFrequency: 20000
 
