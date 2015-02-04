@@ -73,7 +73,7 @@ update: (output, domEl) ->
 
   totalCpuUsage = processes[2]
   cpuQuantity = processes[3]
-  alarm = parseInt(totalCpuUsage/cpuQuantity) > 30
+  alarm = parseInt(totalCpuUsage/cpuQuantity) > 50
 
   if(alarm)
     table.find("td").toggleClass("alarm")
