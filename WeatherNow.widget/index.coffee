@@ -1,7 +1,7 @@
 options =
   city          : "Lisbon"   # default city in case location detection fails
   units         : 'c'               # c for celcius. f for Fahrenheit
-  staticLocation: true             # set to true to disable autmatic location lookup
+  staticLocation: false             # set to true to disable autmatic location lookup
 
 appearance =
   iconSet       : 'original'        # "original" for the original icons
@@ -13,7 +13,7 @@ style: """
   white05 = rgba(white,0.5)
   black02 = rgba(black,0.2)
   scale = 1
-  bottom 14px
+  bottom 7px
   right 80px
   font-family Helvetica Neue
 
@@ -42,6 +42,9 @@ style: """
     font-weight 200
     color white05
     text-overflow ellipsis
+
+  .location
+    font-size 12px
 
   @font-face
     font-family Weather
@@ -85,10 +88,13 @@ appearance: appearance
 
 render: -> """
   <canvas class='bg-slice'></canvas>
-  <div class='current'>
-    <div class='icon'></div>
-    <div class='temperature'></div>
-  </div>
+  <a>
+    <div class='current'>
+      <div class='icon'></div>
+      <div class='temperature'></div>
+      <div class='location'></div>
+    </div>
+  </a>
 """
 
 update: (output, domEl) ->
@@ -112,7 +118,10 @@ renderCurrent: (channel) ->
   # date     = new Date()
 
   el = @$domEl.find('.current')
+
+  @$domEl.find('a').attr("href", "#{weather.link}")
   el.find('.temperature').text "#{Math.round(weather.condition.temp)}°"
+  el.find('.location').text "#{weather.title.substring(weather.title.indexOf("for")+4,weather.title.indexOf(","))}"
   el.find('.text').text weather.condition.text
   # el.find('.day').html @dayMapping[date.getDay()]
   # el.find('.location').html location.city+', '+location.region
