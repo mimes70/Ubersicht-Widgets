@@ -16,7 +16,7 @@ style: """
   p
     margin:3px
     font-size: 13px;
-    font-weight: 300
+    font-weight: 400
     text-shadow: 0 1px 5px #000000;
 
   .task
@@ -28,18 +28,23 @@ style: """
 
   tr
     height: 50px
-    vertical-align:top
 
-  .logo
+  .tickets
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(#fff, 0.3)
+
+  .logoCoB
     bottom: 5px;
-    margin: 8px;
+    margin-left: 7px;
+    margin-right:13px
     border-radius: 10px;
     background-color: #d5184b;
     text-align: center;
     vertical-align: middle;
     height: 31px;
 
-  .symbol
+  .symbolCoB
     margin: 0px;
     padding: 0px;
     font-size: 32px;
@@ -63,7 +68,7 @@ render: -> """
           <img style="width:36px;margin-left:6px" src="links.widget/images/lighthouse.png">
           </a>
       </td>
-      <td class="lighthousetickets">
+      <td class="tickets lighthousetickets">
       </td>
     </tr>
     <tr>
@@ -72,12 +77,12 @@ render: -> """
           <img style="width:36px;margin-left:5px" src="links.widget/images/pivotaltracker.png">
         </a>
       </td>
-      <td class="pivotaltickets">
+      <td class="tickets pivotaltickets">
     </tr>
     <tr>
       <td>
         <a href="https://dogfooding.cultofbits.com">
-          <div class="logo">  <div class="symbol">*</div>  </div>
+          <div class="logoCoB">  <div class="symbolCoB">*</div>  </div>
         </a>
       </td>
     </tr>
@@ -144,5 +149,4 @@ update: (output, domEl) ->
   table     = $('.pivotaltickets')
   table.empty()
   for process, i in processes.slice(2)
-    debugger
     table.append "<p class=\"#{'task' if (process.charCodeAt(0)==32)}\">#{process}</p>"
