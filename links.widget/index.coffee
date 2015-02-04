@@ -7,7 +7,7 @@ style: """
   left: 15px
   color: #fff
   font-family: Helvetica Neue
-  //background: rgba(#333, 0.45)
+  background: rgba(#333, 0.45)
   border-radius: 10px;
 
   a
@@ -15,6 +15,7 @@ style: """
 
   p
     margin:3px
+    font-size: 12px;
     font-weight: 200
     text-shadow: 0 1px 5px #000000;
 
@@ -55,10 +56,6 @@ render: -> """
           </a>
       </td>
       <td class="lighthousetickets">
-        <p>teste 21</p>
-        <p>teste 21</p>
-        <p>teste 21</p>
-        <p>teste 21</p>
       </td>
     </tr>
     <tr>
@@ -107,6 +104,13 @@ render: -> """
       <td>
         <a href="http://devdocs.io/">
           <img style="width:32px;margin-left:7px" src="links.widget/images/html5.png">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://cultofbits.kindlingapp.com/login?from=%2F#all-activity">
+          <img style="width:62px;margin-left:-9px" src="links.widget/images/kindling.png">
         </a>
       </td>
     </tr>
