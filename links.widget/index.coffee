@@ -31,10 +31,10 @@ style: """
     height: 50px
 
   .tickets
-    //border-bottom-style: solid;
-    //border-bottom-width: 1px;
-    //border-bottom-color: rgba(#fff, 0.3)
-    background-color:rgba(0,0,0,0.3);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(#fff, 0.3)
+    //background-color:rgba(0,0,0,0.3);
     border-radius: 4px;
 
   .logoCoB
