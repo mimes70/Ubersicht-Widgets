@@ -7,7 +7,6 @@ style: """
   left: 15px
   color: #fff
   font-family: Helvetica Neue
-  //background: rgba(#333, 0.1)
   border-radius: 10px;
 
   a
@@ -33,6 +32,8 @@ style: """
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgba(#fff, 0.3)
+    background-color:rgba(0,0,0,0.3);
+    border-radius: 6px;
 
   .logoCoB
     bottom: 5px;

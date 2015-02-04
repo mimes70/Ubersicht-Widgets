@@ -17,6 +17,9 @@ style: """
   right 80px
   font-family Helvetica Neue
 
+  a
+    text-decoration:none
+
   .current
     position relative
     color white1
