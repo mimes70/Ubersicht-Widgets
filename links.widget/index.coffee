@@ -1,13 +1,13 @@
-command: ""
+command: "links.widget/lighthouse.sh && links.widget/pivotal_people.sh"
 
-refreshFrequency: 600000
+refreshFrequency: 60000
 
 style: """
   top: 15px
   left: 15px
   color: #fff
   font-family: Helvetica Neue
-  background: rgba(#333, 0.45)
+  //background: rgba(#333, 0.1)
   border-radius: 10px;
 
   a
@@ -15,11 +15,13 @@ style: """
 
   p
     margin:3px
-    font-size: 12px;
-    font-weight: 200
+    font-size: 13px;
+    font-weight: 300
     text-shadow: 0 1px 5px #000000;
 
-
+  .task
+    font-weight: 200
+    padding-left: 15px
 
   table
     padding-top:10px
@@ -44,6 +46,12 @@ style: """
     font-family: verdana;
     color: #fff;
     font-weight: bolder;
+
+  .cgd
+    border-radius: 10px;
+    background-color: rgba(#fff, 0.7);
+    padding: 2px
+
 """
 
 
@@ -64,6 +72,7 @@ render: -> """
           <img style="width:36px;margin-left:5px" src="links.widget/images/pivotaltracker.png">
         </a>
       </td>
+      <td class="pivotaltickets">
     </tr>
     <tr>
       <td>
@@ -114,5 +123,26 @@ render: -> """
         </a>
       </td>
     </tr>
+    <tr>
+      <td>
+        <a href="https://www.cgd.pt/Pages/Default.aspx">
+          <img class="cgd" style="width:28px;margin-left:6px" src="links.widget/images/cgd.gif">
+        </a>
+      </td>
+    </tr>
   </table>
 """
+
+update: (output, domEl) ->
+  processes = output.split('\n')
+
+  table     = $('.lighthousetickets')
+  table.empty()
+  for process, i in processes.slice(0,2)
+    table.append "<p>#{process}</p>"
+
+  table     = $('.pivotaltickets')
+  table.empty()
+  for process, i in processes.slice(2)
+    debugger
+    table.append "<p class=\"#{'task' if (process.charCodeAt(0)==32)}\">#{process}</p>"
