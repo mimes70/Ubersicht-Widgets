@@ -1,6 +1,6 @@
 command: "links.widget/lighthouse.sh && links.widget/pivotal_people.sh"
 
-refreshFrequency: 60000
+refreshFrequency: 600000
 
 style: """
   top: 15px
@@ -14,6 +14,7 @@ style: """
 
   p
     margin:3px
+    padding-left: 5px
     font-size: 13px;
     font-weight: 400
     text-shadow: 0 1px 5px #000000;
@@ -21,6 +22,7 @@ style: """
   .task
     font-weight: 200
     padding-left: 15px
+    text-shadow:none
 
   table
     padding-top:10px
@@ -29,11 +31,11 @@ style: """
     height: 50px
 
   .tickets
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: rgba(#fff, 0.3)
+    //border-bottom-style: solid;
+    //border-bottom-width: 1px;
+    //border-bottom-color: rgba(#fff, 0.3)
     background-color:rgba(0,0,0,0.3);
-    border-radius: 6px;
+    border-radius: 4px;
 
   .logoCoB
     bottom: 5px;
