@@ -51,7 +51,7 @@ IFS='~' read -r theArea theProject theTask <<<"$(osascript <<<'
 echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'"}'
 """
 
-refreshFrequency: 5000
+refreshFrequency: 15000
 
 style: """
   bottom: 55px
@@ -66,18 +66,23 @@ style: """
 
   .task
     font-size: 30px
-    color:red
+    color:#ffcb87
     font-weight: 200
+    text-shadow: 0 1px 5px #000000;
     text-decoration: none
 
   .project
     font-size: 26px
     color:white
+    text-shadow: 0 1px 5px #000000;
     text-decoration: none
+    font-weight: 200
 
   .area
     font-size: 20px
     color:white
+    font-weight: 200
+    text-shadow: 0 1px 5px #000000;
     text-decoration: none
 """
 
@@ -88,7 +93,6 @@ update: (output, domEl) ->
   $domEl.html @getVisual output
 
 getVisual: (output) ->
-  console.log(output)
   data = []
   try
     data = JSON.parse output
