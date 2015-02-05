@@ -54,36 +54,31 @@ echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'"}'
 refreshFrequency: 15000
 
 style: """
-  bottom: 55px
-  left:1032px
+  bottom: 15px
+  left:683px
   text-align:center
-  color: #fff
+  font-family: Helvetica Neue
 
-  .output
-    font-family: Helvetica Neue
-    font-weight: 100
+  div
+    width:1190px
+
+  a
     text-shadow: 0 1px 5px #000000;
+    text-decoration: none
+    color:white
 
   .task
     font-size: 30px
-    color:#ffcb87
+    color:#ffffc7
     font-weight: 200
-    text-shadow: 0 1px 5px #000000;
-    text-decoration: none
 
   .project
-    font-size: 26px
-    color:white
-    text-shadow: 0 1px 5px #000000;
-    text-decoration: none
+    font-size: 20px
     font-weight: 200
 
   .area
-    font-size: 20px
-    color:white
+    font-size: 15px
     font-weight: 200
-    text-shadow: 0 1px 5px #000000;
-    text-decoration: none
 """
 
 render: (output) -> @getVisual output
@@ -103,10 +98,12 @@ getVisual: (output) ->
       </div>
     """
   return """
-      <div class="output">
+    <div>
         <a href="#{data.task}" class="task">#{data.task}</a>
         <br/>
         <a href="#{data.project}" class="project">#{data.project}</a>
-        &nbsp;(<a href="spotify:search:#{data.area}" class="area">#{data.area}</a>)
-      </div>
+        <br/>
+        <a href="spotify:search:#{data.area}" class="area">#{data.area}</a>
+    </div>
+
   """
