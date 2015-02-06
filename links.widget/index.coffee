@@ -138,6 +138,13 @@ render: -> """
         </a>
       </td>
     </tr>
+    <tr>
+      <td>
+        <a href="http://www.tutorialspoint.com/execute_groovy_online.php">
+          <img class="cgd" style="width:28px;margin-left:6px" src="http://www.tutorialspoint.com/favicon.ico">
+        </a>
+      </td>
+    </tr>
   </table>
 """
 

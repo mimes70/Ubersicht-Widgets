@@ -13,6 +13,7 @@ style: """
 """
 
 render: (output) -> """
+  <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <div id="draggable" class="ui-widget-content" onclick="$('#draggable').draggable(); $('#draggable').resizable();;">
     <p></p>
