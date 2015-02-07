@@ -54,7 +54,7 @@ echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'"}'
 refreshFrequency: 15000
 
 style: """
-  bottom: 15px
+  bottom: 16px
   left:683px
   text-align:center
   font-family: Helvetica Neue
@@ -98,6 +98,7 @@ getVisual: (output) ->
       </div>
     """
   return """
+    <img style="vertical-align:3%" src="current-task.widget/images/Active-19.png"/>
     <div>
         <a href="#{data.task}" class="task">#{data.task}</a>
         <br/>

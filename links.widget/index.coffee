@@ -4,7 +4,7 @@ refreshFrequency: 600000
 
 style: """
   top: 15px
-  left: 15px
+  left: 9px
   color: #fff
   font-family: Helvetica Neue
   border-radius: 10px;
@@ -127,21 +127,21 @@ render: -> """
     <tr>
       <td>
         <a href="https://cultofbits.kindlingapp.com/login?from=%2F#all-activity">
-          <img style="width:62px;margin-left:-9px" src="links.widget/images/kindling.png">
+          <img style="width:62px;margin-left:-8px" src="links.widget/images/kindling.png">
         </a>
       </td>
     </tr>
     <tr>
       <td>
         <a href="https://www.cgd.pt/Pages/Default.aspx">
-          <img class="cgd" style="width:28px;margin-left:6px" src="links.widget/images/cgd.gif">
+          <img class="cgd" style="width:28px;margin-left:7px" src="links.widget/images/cgd.gif">
         </a>
       </td>
     </tr>
     <tr>
       <td>
         <a href="http://www.tutorialspoint.com/execute_groovy_online.php">
-          <img class="cgd" style="width:28px;margin-left:6px" src="http://www.tutorialspoint.com/favicon.ico">
+          <img class="cgd" style="width:28px;margin-left:7px" src="http://www.tutorialspoint.com/favicon.ico">
         </a>
       </td>
     </tr>

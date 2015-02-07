@@ -3,7 +3,7 @@ command: "ps axmo \"pid, %mem, ucomm\" | awk 'FNR>1' | head -n 2 | awk '{ printf
 refreshFrequency: 20000
 
 style: """
-  bottom: 15px
+  bottom: 17px
   right: 150px
   color: #fff
   font-family: Helvetica Neue

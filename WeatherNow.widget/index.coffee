@@ -13,7 +13,7 @@ style: """
   white05 = rgba(white,0.5)
   black02 = rgba(black,0.2)
   scale = 1
-  bottom 4px
+  bottom 6px
   right 80px
   font-family Helvetica Neue
 

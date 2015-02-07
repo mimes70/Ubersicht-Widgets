@@ -64,8 +64,8 @@ echo '{ "artist":"'$theArtist'","song": "'$theName'", "id": "'$theId'", "app":"'
 refreshFrequency: 2000
 
 style: """
-  bottom: 15px
-  left: 15px
+  bottom: 12px
+  left: 17px
   color: #fff
 
   .output
