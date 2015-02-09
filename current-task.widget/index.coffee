@@ -80,6 +80,9 @@ style: """
   .area
     font-size: 12px
     font-weight: 200
+
+  .warning
+    color:red
 """
 
 render: (output) ->
@@ -145,14 +148,25 @@ update: (output, domEl) ->
 
 
 updateStatus: (result) ->
-    if result == "On"
-      $("#toggl").attr("src","current-task.widget/images/Active-19.png");
-    else
+    debugger
+    if result == "Off"
       $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
+      $(".thing").removeClass("warning")
+      $(".project").removeClass("warning")
+      $(".area").removeClass("warning")
+    else
+      $("#toggl").attr("src","current-task.widget/images/Active-19.png");
+      if result.substring(3) != $(".thing").text()
+        $(".thing").addClass("warning")
+        $(".project").addClass("warning")
+        $(".area").addClass("warning")
+      else
+        $(".thing").removeClass("warning")
+        $(".project").removeClass("warning")
+        $(".area").removeClass("warning")
 
 
 clickReact: () ->
-  debugger
   if $("#toggl").attr("src") == "current-task.widget/images/Active-19.png"
     $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
     $.ajax({url: "/Stop", success: @stop});
@@ -164,6 +178,9 @@ clickReact: () ->
     url = "/Start/"+area+"/"+project+"/"+task
 
     $.ajax({url: encodeURI(url), success: @start});
+  $(".thing").removeClass("warning")
+  $(".project").removeClass("warning")
+  $(".area").removeClass("warning")
 
 stopToggl: () ->
 
@@ -173,11 +190,11 @@ startToggl: () ->
 serverCode: () ->
     ###
     var WID = 795785;
-    var clientName = null;
-    var clientName = "Pessoal - Finance";
-    var projectName = "Ampliar funcionalidades do Uberstich";
-    var projectName = null;
-    var timeDescription = "Controlar tempo gasto em cada tarefa";
+    #var clientName = null;
+    #var clientName = "Pessoal - Finance";
+    #var projectName = "Ampliar funcionalidades do Uberstich";
+    #var projectName = null;
+    #var timeDescription = "Controlar tempo gasto em cada tarefa";
 
     var TogglClient = require('toggl-api'), toggl = new TogglClient({apiToken: '5bb060a61d08f401c4d2422925178593'});
 
@@ -254,11 +271,12 @@ serverCode: () ->
     server = connect().use('/status', function fooMiddleware(req, res, next) {
             toggl.getCurrentTimeEntry(function(err, timeEntry) {
                 if(timeEntry) {
-                    res.end("On");
+                    res.end("On:"+ (timeEntry.description?timeEntry.description:""));
                 } else {
                     res.end("Off");
                 }
             });
+        }).use('/start', function fooMiddleware(req, res, next) {
         }).use('/start', function fooMiddleware(req, res, next) {
             var args = req.url.substr(1).split('/');
             startTime(decodeURI(args[0]), args[1]?decodeURI(args[1]):"Generic", decodeURI(args[2]));
