@@ -148,7 +148,6 @@ update: (output, domEl) ->
 
 
 updateStatus: (result) ->
-    debugger
     if result == "Off"
       $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
       $(".thing").removeClass("warning")
@@ -276,7 +275,6 @@ serverCode: () ->
                     res.end("Off");
                 }
             });
-        }).use('/start', function fooMiddleware(req, res, next) {
         }).use('/start', function fooMiddleware(req, res, next) {
             var args = req.url.substr(1).split('/');
             startTime(decodeURI(args[0]), args[1]?decodeURI(args[1]):"Generic", decodeURI(args[2]));
