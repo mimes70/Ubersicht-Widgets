@@ -25,9 +25,11 @@ do
 			IFS='#'
 			for i in $RESULT2; do
 				if [ -n "$i" ]; then
-					TASK=$(echo "Testar ${PROJECT_NAME[$PROJ_NUMBER]}: $i" | perl -C -pe 's/&\#(\d+);/chr($1)/ge')
-					echo "       $TASK"
-					export TASK	
+					RSLT=$(echo "Testar ${PROJECT_NAME[$PROJ_NUMBER]}: $i" | perl -C -pe 's/&\#(\d+);/chr($1)/ge' )
+					echo "       $RSLT"
+					TASK=$(echo $RSLT | iconv -t MACROMAN -f UTF8-MAC)
+					export TASK
+
 					APPSCPTRSLT="$(osascript <<<'
 						tell application "Things"
 							set TASK to system attribute "TASK"
@@ -44,7 +46,7 @@ do
 								set newToDo to make new to do with properties {name:taskName, notes:taskNotes} at beginning of list "Today"
 							end if
 						end tell
-					')"				
+					')"
 				fi
 			done
 			IFS=$OIFS
