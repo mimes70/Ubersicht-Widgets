@@ -9,45 +9,37 @@ appearance =
 refreshFrequency: 600000            # Update every 10 minutes
 
 style: """
-  white1 = rgba(white,1)
-  white05 = rgba(white,0.5)
+  white1 = rgba(white,0.6)
+  white05 = rgba(white,0.3)
   black02 = rgba(black,0.2)
-  scale = 1
-  bottom 6px
-  right 80px
+  scale = 0.6
+  bottom 13px
+  right 375px
   font-family Helvetica Neue
-
-  a
-    text-decoration:none
 
   .current
     position relative
     color white1
-    padding 10px
+    padding 5px
     -webkit-font-smoothing antialiased
     white-space nowrap
-    width 145px * scale
 
   .bg-slice
-    width: 50
-    height: 50
+    width: 20
+    height: 20
 
   .icon, .temperature, .text
     display inline-block
 
   .current .temperature
-    font-size 25px
-    font-weight 700
+    font-size 10px
+    font-weight 500
     vertical-align: bottom;
 
-  .current .text
-    font-size 12px
-    font-weight 200
-    color white05
-    text-overflow ellipsis
-
-  .location
-    font-size 12px
+  .current .high
+    vertical-align: top;
+    margin-right: -19px;
+    margin-top: 5px;
 
   @font-face
     font-family Weather
@@ -63,7 +55,7 @@ style: """
     text-align center
     width icon-size
     max-width icon-size
-    padding 8px 8px 0 0
+    padding 8px 0px 0 0
     margin-right 8px
 
     img
@@ -90,14 +82,13 @@ command: "#{process.argv[0]} WeatherNow.widget/get-weather \
 appearance: appearance
 
 render: -> """
-  <a>
-    <canvas class='bg-slice'></canvas>
-    <div class='current'>
-      <div class='icon'></div>
-      <div class='temperature'></div>
-      <div class='location'></div>
-    </div>
-  </a>
+
+  <div class='current'>
+    <div class='icon'></div>
+    <div class='temperature high'></div>
+    <div class='temperature low'></div>
+  </div>
+
 """
 
 update: (output, domEl) ->
@@ -110,6 +101,7 @@ update: (output, domEl) ->
   if channel.title == "Yahoo! Weather - Error"
     return @renderError(data, channel.item?.title)
 
+  debugger;
   @renderCurrent channel
 
   @$domEl.find('.error').remove()
@@ -122,14 +114,15 @@ renderCurrent: (channel) ->
 
   el = @$domEl.find('.current')
 
-  @$domEl.find('a').attr("href", "https://weather.yahoo.com/portugal/lisbon/lisbon-742676/") #era #{weather.link} mas não funciona
-  el.find('.temperature').text "#{Math.round(weather.condition.temp)}°"
+  @$domEl.find('a').attr("href", "#{weather.link}")
+  el.find('.high').text "#{Math.round(weather.forecast[1].high)}°"
+  el.find('.low').text "#{Math.round(weather.forecast[1].low)}°"
   el.find('.location').text "#{weather.title.substring(weather.title.indexOf("for")+4,weather.title.indexOf(","))}"
-  el.find('.text').text weather.condition.text
+  el.find('.text').text weather.forecast[1].text
   # el.find('.day').html @dayMapping[date.getDay()]
   # el.find('.location').html location.city+', '+location.region
   el.find('.icon').html @getIcon(
-    weather.condition.code,
+    weather.forecast[1].code,
     @appearance.iconSet,
     @getDayOrNight channel.astronomy
   )
