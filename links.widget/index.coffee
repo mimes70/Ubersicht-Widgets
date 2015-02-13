@@ -38,19 +38,18 @@ style: """
     border-radius: 4px;
 
   .logoCoB
-    bottom: 5px;
-    margin-left: 7px;
-    margin-right:13px
+    margin-left: 8px;
     border-radius: 10px;
     background-color: #d5184b;
     text-align: center;
     vertical-align: middle;
-    height: 31px;
+    height: 32px;
+    width:32px;
 
   .symbolCoB
-    margin: 0px;
-    padding: 0px;
-    font-size: 32px;
+    margin-left: 1px;
+    padding-top: 2px;
+    font-size: 29px;
     font-family: verdana;
     color: #fff;
     font-weight: bolder;
