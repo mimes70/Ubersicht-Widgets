@@ -55,7 +55,7 @@ refreshFrequency: 15000
 
 style: """
   bottom: 16px
-  left:683px
+  left:50%-595px
   text-align:center
   font-family: Helvetica Neue
 
