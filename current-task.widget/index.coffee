@@ -55,12 +55,13 @@ refreshFrequency: 15000
 
 style: """
   bottom: 16px
-  left:50%-595px
+  left:50%
+  margin-left:-500px
   text-align:center
   font-family: Helvetica Neue
 
   div
-    width:1190px
+    width:1000px
 
   p
     text-shadow: 0 1px 5px #000000;
