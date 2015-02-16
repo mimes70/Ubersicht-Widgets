@@ -120,8 +120,9 @@ render: (output) ->
           });
         });
       </script>
-      <img id="toggl" style="vertical-align:3%" src="current-task.widget/images/Inactive-19.png"/>
+      <p id="timelapse" style="margin:5px;color:rgba(255,255,255,0.4)"/>
       <div>
+          <img id="toggl" style="vertical-align:3%" src="current-task.widget/images/Inactive-19.png"/>
           <p class="thing"/>
           <p class="project"/>
           <p class="area"/>
@@ -148,13 +149,19 @@ update: (output, domEl) ->
   $.ajax({url: "/Status", success: @updateStatus});
 
 
-updateStatus: (result) ->
+updateStatus: (resultArray) ->
+    tmp = resultArray.split('\n')
+    result = tmp[0]
+    timeLapse = tmp[1]
+    debugger;
     if result == "Off"
+      $("#timelapse").text("")
       $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
       $(".thing").removeClass("warning")
       $(".project").removeClass("warning")
       $(".area").removeClass("warning")
     else
+      $("#timelapse").text(timeLapse)
       $("#toggl").attr("src","current-task.widget/images/Active-19.png");
       if result.substring(3) != $(".thing").text()
         $(".thing").addClass("warning")
@@ -189,13 +196,13 @@ startToggl: () ->
 
 serverCode: () ->
     ###
-    var WID = 795785;
     #var clientName = null;
     #var clientName = "Pessoal - Finance";
     #var projectName = "Ampliar funcionalidades do Uberstich";
     #var projectName = null;
     #var timeDescription = "Controlar tempo gasto em cada tarefa";
 
+    var WID = 795785;
     var TogglClient = require('toggl-api'), toggl = new TogglClient({apiToken: '5bb060a61d08f401c4d2422925178593'});
 
     function getEntryByKey(array, key, value) {
@@ -271,7 +278,10 @@ serverCode: () ->
     server = connect().use('/status', function fooMiddleware(req, res, next) {
             toggl.getCurrentTimeEntry(function(err, timeEntry) {
                 if(timeEntry) {
-                    res.end("On:"+ (timeEntry.description?timeEntry.description:""));
+									  var now = new Date();
+										var timeLapse = new Date(now - new Date(timeEntry.start));
+										var timeLapseStr = timeLapse.getHours()+":"+timeLapse.getMinutes();
+                    res.end("On:"+ (timeEntry.description?timeEntry.description+"\n"+timeLapseStr:""));
                 } else {
                     res.end("Off");
                 }
@@ -285,5 +295,5 @@ serverCode: () ->
                         res.end('Stop: '+timeEntry.description);
                 });
             });
-        }).use(connect["static"](path.resolve(__dirname, './public'))).use(WidgetCommandServer(widgetDir)).use(WidgetsServer(widgetDir)).use(changesServer.middl
+        }) .use(connect["static"](path.resolve(__dirname, './public'))).use(WidgetCommandServer(widgetDir)).use(WidgetsServer(widgetDir)).use(changesServer.middleware).use(connect["static"](widgetPath)).listen(port, function() {
     ###
