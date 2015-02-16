@@ -278,12 +278,12 @@ serverCode: () ->
     server = connect().use('/status', function fooMiddleware(req, res, next) {
             toggl.getCurrentTimeEntry(function(err, timeEntry) {
                 if(timeEntry) {
-									  var now = new Date();
-										var timeLapse = new Date(now - new Date(timeEntry.start));
-										var timeLapseStr = timeLapse.getHours()+":"+timeLapse.getMinutes();
-                    res.end("On:"+ (timeEntry.description?timeEntry.description+"\n"+timeLapseStr:""));
+									var now = new Date();
+									var timeLapse = new Date(now - new Date(timeEntry.start));
+									var timeLapseStr = ("0"+timeLapse.getHours()).slice(-2)+":"+("0"+timeLapse.getMinutes()).slice(-2);
+                  res.end("On:"+ (timeEntry.description?timeEntry.description+"\n"+timeLapseStr:""));
                 } else {
-                    res.end("Off");
+                  res.end("Off");
                 }
             });
         }).use('/start', function fooMiddleware(req, res, next) {
