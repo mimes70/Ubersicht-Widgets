@@ -1,54 +1,6 @@
 command: """
-IFS='~' read -r theArea theProject theTask theTags <<<"$(osascript <<<'
-  tell application "System Events" to (name of processes) contains "Things"
-
-  if result is true then
-  	tell application "Things"
-  		repeat with theTodo in to dos of list "Today"
-  			if status of theTodo is open then exit repeat
-  		end repeat
-
-  		set theAreaName to ""
-  		set theNotesText to ""
-
-  		set theTaskName to name of the theTodo
-  		try
-  			set theProject to the project of the theTodo
-  			set theProjectName to the name of theProject
-  			set theArea to the area of theProject
-  			set theAreaName to the name of theArea
-  		on error errStr number errorNumber
-  			#Uma vez que o primeiro iteam do Today não pertence a um projecto vamos assumir que o item é um projecto
-  			set theProjectName to name of theTodo
-  			try
-  				#tentamos agora obter a lista de to dos
-  				set projectTodos to to dos of the theTodo
-  				#se foi possível é porque é mesmo um projecto e logo não tem tarefa
-  				set theTaskName to ""
-  			on error errStr number errorNumber
-  				#se falhou é porque era mesmo só uma tarefa
-  				set theProjectName to ""
-  			end try
-  			try
-  				set theArea to the area of the theTodo
-  				set theAreaName to the name of theArea
-  			end try
-  		end try
-
-  		set theTagsList to the tag names of the theTodo
-
-
-  		#if notes of theTodo is not "" then
-  		#	set theNotesText to notes of theTodo
-  		#end if
-
-  		set message to theAreaName & "~" & theProjectName & "~" & theTaskName & "~" & theTagsList
-  	end tell
-  else
-  	return "No focus (Things closed)!"
-  end if
-')"
-echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'", "tags": "'$theTags'"}'
+IFS='~' read -r theArea theProject theTask theTags theNotes <<<"$(osascript current-task.widget/getTaskDetails.scpt)"
+echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'", "tags": "'$theTags'", "notes": "'$theNotes'"}'
 """
 
 refreshFrequency: 15000
@@ -56,31 +8,28 @@ refreshFrequency: 15000
 style: """
   bottom: 16px
   left:50%
+  width:1000px
   margin-left:-500px
+
   text-align:center
   font-family: Helvetica Neue
-
-  div
-    width:1000px
+  font-weight: 200
+  text-shadow: 0 1px 5px #000000;
+  text-decoration: none
+  color:white
 
   p
-    text-shadow: 0 1px 5px #000000;
-    text-decoration: none
-    color:white
     margin:0px
 
   .thing
     font-size: 30px
     color:#ffffc7
-    font-weight: 200
 
   .project
     font-size: 18px
-    font-weight: 200
 
   .area
     font-size: 12px
-    font-weight: 200
 
   .warning
     color:red
@@ -116,6 +65,7 @@ render: (output) ->
           <p class="thing"/>
           <p class="project"/>
           <p class="area"/>
+          <p class="notes"/>
       </div>
     """
 
@@ -129,6 +79,7 @@ update: (output, domEl) ->
   $(".thing").text(data.task);
   $(".project").text(data.project);
   $(".area").text(data.area);
+  $(".notes").text(data.notes);
   if !$("#toggl").hasClass("reactDone")
     $("#toggl").addClass("reactDone")
     $("#toggl").click(@clickReact)
@@ -167,9 +118,9 @@ clickReact: () ->
     task = $(".thing").text();
     project = $(".project").text();
     area = $(".area").text();
-    url = "/Start/"+area+"/"+project+"/"+task
+    url = "/Start/"+encodeURIComponent(area)+"/"+encodeURIComponent(project)+"/"+encodeURIComponent(task)
 
-    $.ajax({url: encodeURI(url), success: @start});
+    $.ajax({url: url, success: @start});
   $(".thing").removeClass("warning")
   $(".project").removeClass("warning")
   $(".area").removeClass("warning")
@@ -274,7 +225,7 @@ serverCode: () ->
             });
         }).use('/start', function fooMiddleware(req, res, next) {
             var args = req.url.substr(1).split('/');
-            startTime(decodeURI(args[0]), args[1]?decodeURI(args[1]):"Generic", decodeURI(args[2]));
+            startTime(decodeURIComponent(args[0]), args[1]?decodeURIComponent(args[1]):"Generic", decodeURIComponent(args[2]));
         }).use('/stop', function fooMiddleware(req, res, next) {
             toggl.getCurrentTimeEntry(function(err, timeEntry) {
                 toggl.stopTimeEntry(timeEntry.id, function(err) {
