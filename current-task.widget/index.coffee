@@ -1,5 +1,5 @@
 command: """
-IFS='~' read -r theArea theProject theTask <<<"$(osascript <<<'
+IFS='~' read -r theArea theProject theTask theTags <<<"$(osascript <<<'
   tell application "System Events" to (name of processes) contains "Things"
 
   if result is true then
@@ -48,7 +48,7 @@ IFS='~' read -r theArea theProject theTask <<<"$(osascript <<<'
   	return "No focus (Things closed)!"
   end if
 ')"
-echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'"}'
+echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'", "tags": "'$theTags'"}'
 """
 
 refreshFrequency: 15000
@@ -87,16 +87,6 @@ style: """
 """
 
 render: (output) ->
-    data = []
-    try
-      data = JSON.parse output
-    catch ex
-      return """
-        <div>
-          <span>Error: #{output}</span>
-        </div>
-      """
-
     return """
       <script>
         $(document).ready(function(){
@@ -134,11 +124,7 @@ update: (output, domEl) ->
   try
     data = JSON.parse output
   catch ex
-    return """
-      <div>
-        <span>Error: #{output}</span>
-      </div>
-    """
+    $(".area").text("Error Parsing JSON response: #{output}");
 
   $(".thing").text(data.task);
   $(".project").text(data.project);
@@ -153,7 +139,6 @@ updateStatus: (resultArray) ->
     tmp = resultArray.split('\n')
     result = tmp[0]
     timeLapse = tmp[1]
-    debugger;
     if result == "Off"
       $("#timelapse").text("")
       $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
@@ -190,6 +175,7 @@ clickReact: () ->
   $(".area").removeClass("warning")
 
 stopToggl: () ->
+
 
 startToggl: () ->
 
