@@ -6,7 +6,7 @@ echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'", "t
 refreshFrequency: 15000
 
 style: """
-  bottom: 16px
+  bottom: 10px
   left:50%
   width:1000px
   margin-left:-500px
@@ -21,6 +21,9 @@ style: """
   p
     margin:0px
 
+  #currentTaskContent
+    padding:5px
+
   .thing
     font-size: 30px
     color:#ffffc7
@@ -32,7 +35,10 @@ style: """
     font-size: 12px
 
   .warning
-    color:red
+    background:rgba(255,0,0,0.3)
+    border-radius:10px
+    -webkit-transition: background-color 2000ms linear;
+
 """
 
 render: (output) ->
@@ -59,13 +65,15 @@ render: (output) ->
           });
         });
       </script>
-      <p id="timelapse" style="margin:5px;color:rgba(255,255,255,0.4)"/>
-      <div>
-          <img id="toggl" style="vertical-align:3%" src="current-task.widget/images/Inactive-19.png"/>
-          <p class="thing"/>
-          <p class="project"/>
-          <p class="area"/>
-          <p class="notes"/>
+      <div id="currentTaskContent">
+        <p id="timelapse" style="margin:5px;color:rgba(255,255,255,0.4)"/>
+        <div>
+            <img id="toggl" style="vertical-align:3%" src="current-task.widget/images/Inactive-19.png"/>
+            <p class="thing"/>
+            <p class="project"/>
+            <p class="area"/>
+            <p class="notes"/>
+        </div>
       </div>
     """
 
@@ -79,7 +87,6 @@ update: (output, domEl) ->
   $(".thing").text(data.task);
   $(".project").text(data.project);
   $(".area").text(data.area);
-  $(".notes").text(data.notes);
   if !$("#toggl").hasClass("reactDone")
     $("#toggl").addClass("reactDone")
     $("#toggl").click(@clickReact)
@@ -93,21 +100,14 @@ updateStatus: (resultArray) ->
     if result == "Off"
       $("#timelapse").text("")
       $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
-      $(".thing").removeClass("warning")
-      $(".project").removeClass("warning")
-      $(".area").removeClass("warning")
+      $("#currentTaskContent").removeClass("warning")
     else
       $("#timelapse").text(timeLapse)
       $("#toggl").attr("src","current-task.widget/images/Active-19.png");
       if result.substring(3) != $(".thing").text()
-        $(".thing").addClass("warning")
-        $(".project").addClass("warning")
-        $(".area").addClass("warning")
+        $("#currentTaskContent").addClass("warning")
       else
-        $(".thing").removeClass("warning")
-        $(".project").removeClass("warning")
-        $(".area").removeClass("warning")
-
+        $("#currentTaskContent").removeClass("warning")
 
 clickReact: () ->
   if $("#toggl").attr("src") == "current-task.widget/images/Active-19.png"
@@ -121,9 +121,7 @@ clickReact: () ->
     url = "/Start/"+encodeURIComponent(area)+"/"+encodeURIComponent(project)+"/"+encodeURIComponent(task)
 
     $.ajax({url: url, success: @start});
-  $(".thing").removeClass("warning")
-  $(".project").removeClass("warning")
-  $(".area").removeClass("warning")
+  $("#currentTaskContent").removeClass("warning")
 
 stopToggl: () ->
 
