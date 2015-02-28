@@ -101,7 +101,6 @@ update: (output, domEl) ->
   if channel.title == "Yahoo! Weather - Error"
     return @renderError(data, channel.item?.title)
 
-  debugger;
   @renderCurrent channel
 
   @$domEl.find('.error').remove()
