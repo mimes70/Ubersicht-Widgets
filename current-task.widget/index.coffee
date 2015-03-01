@@ -159,6 +159,7 @@ updateStatus: (resultArray) ->
         $("#currentTaskContent").removeClass("warning")
 
 clickReact: () ->
+  $("#currentTaskContent").removeClass("warning")
   if $("#toggl").attr("src") == "current-task.widget/images/Active-19.png"
     $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
     $.ajax({url: "/Stop", success: @stopToggl});
@@ -168,9 +169,7 @@ clickReact: () ->
     project = $(".project").text();
     area = $(".area").text();
     url = "/Start/"+encodeURIComponent(area)+"/"+encodeURIComponent(project)+"/"+encodeURIComponent(task)
-
     $.ajax({url: url, success: @startToggl});
-  $("#currentTaskContent").removeClass("warning")
 
 stopToggl: () ->
 
@@ -189,11 +188,11 @@ serverCode: () ->
     var WID = 795785;
     var TogglClient = require('toggl-api'), toggl = new TogglClient({apiToken: '5bb060a61d08f401c4d2422925178593'});
 
-    function getEntryByKey(array, key, value) {
+    function getEntryByKey(array, key, value, key2, value2) {
     	if(!value) return null;
     	for(var i = 0; array && i < array.length ; i++) {
     		//console.log(array[i][key]);
-    		if(array[i][key] == value) {
+    		if(array[i][key] == value && (!key2 || !value2 && !array[i][key2] || array[i][key2] == value2)) {
     			return array[i];
     		}
     	}
@@ -209,9 +208,9 @@ serverCode: () ->
 
     function startTimeWithCid(cid, projectName, timeDescription) {
     	var next = function(projects) {
-    		var p = getEntryByKey(projects, "name", projectName);
+    		var p = getEntryByKey(projects, "name", projectName, "cid", cid);
     		//Cria se o id for a flag de 'não encontrado' ou se o cliente do projecto não é o cliente pretendido
-    		if(p && (p.id < 0 || p.cid != cid)) {
+    		if(p && (p.id < 0 || (cid && p.cid != cid))) {
     			toggl.createProject({"name":projectName, "wid":WID, "cid":cid, "is_private":false }, function(err, projectData) {
     				console.log("Created project:", projectName, projectData.id);
     				startTimeWithPid(projectData.id, timeDescription);
@@ -239,45 +238,44 @@ serverCode: () ->
     }
 
     function startTime(clientName,projectName,timeDescription) {
-    	toggl.getClients(function(err, clients) {
-    		var c = getEntryByKey(clients, "name", clientName);
-    		if(c && c.id < 0) {
-    			toggl.createClient({"name":clientName, "wid":WID}, function(err, clientData) {
-    				console.log("Created client:", clientName, clientData.id);
-    				startTimeWithCid(clientData.id, projectName, timeDescription);
-    			});
-    		} else {
-    			if(c) {
-    				console.log('ClientId: '+c.id);
-    				startTimeWithCid(c.id, projectName, timeDescription);
-    			} else {
-    				console.log('No client');
-    				startTimeWithCid(null, projectName, timeDescription);
-    			}
-    		}
-    	});
+		if (!clientName) {
+			console.log('No client');
+			startTimeWithCid(null, projectName, timeDescription);
+		} else {
+			toggl.getClients(function(err, clients) {
+				var c = getEntryByKey(clients, "name", clientName);
+				if(c && c.id < 0) {
+					toggl.createClient({"name":clientName, "wid":WID}, function(err, clientData) {
+						console.log("Created client:", clientName, clientData.id);
+						startTimeWithCid(clientData.id, projectName, timeDescription);
+					});
+				} else if(c) {
+					console.log('ClientId: '+c.id);
+					startTimeWithCid(c.id, projectName, timeDescription);
+				}
+			});
+		}
     }
 
-
-    server = connect().use('/status', function fooMiddleware(req, res, next) {
-            toggl.getCurrentTimeEntry(function(err, timeEntry) {
-                if(timeEntry) {
-									var now = new Date();
-									var timeLapse = new Date(now - new Date(timeEntry.start));
-									var timeLapseStr = ("0"+timeLapse.getHours()).slice(-2)+":"+("0"+timeLapse.getMinutes()).slice(-2);
-                  res.end("On:"+ (timeEntry.description?timeEntry.description+"\n"+timeLapseStr:""));
-                } else {
-                  res.end("Off");
-                }
-            });
-        }).use('/start', function fooMiddleware(req, res, next) {
-            var args = req.url.substr(1).split('/');
-            startTime(decodeURIComponent(args[0]), args[1]?decodeURIComponent(args[1]):"Generic", decodeURIComponent(args[2]));
-        }).use('/stop', function fooMiddleware(req, res, next) {
-            toggl.getCurrentTimeEntry(function(err, timeEntry) {
-                toggl.stopTimeEntry(timeEntry.id, function(err) {
-                        res.end('Stop: '+timeEntry.description);
-                });
-            });
-        }) .use(connect["static"](path.resolve(__dirname, './public'))).use(WidgetCommandServer(widgetDir)).use(WidgetsServer(widgetDir)).use(changesServer.middleware).use(connect["static"](widgetPath)).listen(port, function() {
+	server = connect().use('/status', function fooMiddleware(req, res, next) {
+		toggl.getCurrentTimeEntry(function(err, timeEntry) {
+			if(timeEntry) {
+				var now = new Date();
+				var timeLapse = new Date(now - new Date(timeEntry.start));
+				var timeLapseStr = ("0"+timeLapse.getHours()).slice(-2)+":"+("0"+timeLapse.getMinutes()).slice(-2);
+				res.end("On:"+ (timeEntry.description?timeEntry.description:"")+"\n"+timeLapseStr);
+			} else {
+				res.end("Off");
+			}
+		});
+	}).use('/start', function fooMiddleware(req, res, next) {
+		var args = req.url.substr(1).split('/');
+		startTime(decodeURIComponent(args[0]), args[1]?decodeURIComponent(args[1]):"Generic", decodeURIComponent(args[2]));
+	}).use('/stop', function fooMiddleware(req, res, next) {
+		toggl.getCurrentTimeEntry(function(err, timeEntry) {
+			toggl.stopTimeEntry(timeEntry.id, function(err) {
+				res.end('Stop: '+timeEntry.description);
+			});
+		});
+	}).use(connect["static"](path.resolve(__dirname, './public'))).use(WidgetCommandServer(widgetDir)).use(WidgetsServer(widgetDir)).use(changesServer.middleware).use(connect["static"](widgetPath)).listen(port, function() {
     ###
