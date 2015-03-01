@@ -117,6 +117,8 @@ update: (output, domEl) ->
 
 
 updateStatus: (resultArray) ->
+    NUMERO_MINUTOS_COM_ALARME = 5
+    NUMERO_MINUTOS_PRE_AVISO = 5
     tmp = resultArray.split('\n')
     result = tmp[0]
     timeLapse = tmp[1]
@@ -129,28 +131,45 @@ updateStatus: (resultArray) ->
       timeGoalT  = new Date('1970-01-01T' + $("#timegoal").text() + ':00Z').getTime() / 60000;
       timeLimitT = new Date('1970-01-01T' + $("#timelimit").text() + ':00Z').getTime() / 60000;
       timeLapseT = new Date('1970-01-01T' + timeLapse + ':00Z').getTime() / 60000;
+      txtPassam = "passam"
+      txtFaltam = "faltam"
+      txtMinutos = "minutos"
 
       missingForTimeLimit = timeLimitT - timeLapseT
       missingForTimeGoal  = timeGoalT - timeLapseT
 
+
       $("#currentTaskContent").removeClass("success")
       $("#timelapse").removeClass("warning")
-      if(timeLimitT && missingForTimeLimit<0)
-        $("#timelapse").text(timeLapse+" (passam "+(-missingForTimeGoal)+" minutos do limite)")
-        if(missingForTimeLimit>-4)
-          audio = new Audio('http://www.storiesinflight.com/html5/audio/flute_c_long_01.wav');
-          audio.play();
+      if(timeLimitT && missingForTimeLimit<NUMERO_MINUTOS_PRE_AVISO)
+        if(missingForTimeLimit==-1 || missingForTimeLimit==1)
+          txtPassam = "passa"
+          txtFaltam = "falta"
+          txtMinutos = "minuto"
+        if(missingForTimeLimit<=0)
+          $("#timelapse").text(timeLapse+" ("+txtPassam+" "+(-missingForTimeLimit)+" "+txtMinutos+" do limite)")
+          if(missingForTimeLimit>-NUMERO_MINUTOS_COM_ALARME)
+            audio = new Audio('http://www.storiesinflight.com/html5/audio/flute_c_long_01.wav');
+            audio.play();
+        else
+          $("#timelapse").text(timeLapse+" ("+txtFaltam+" "+(missingForTimeLimit)+" "+txtMinutos+" para o limite)")
         $("#timelapse").addClass("warning")
       else if(timeGoalT)
+        if(missingForTimeGoal==-1 || missingForTimeGoal==1)
+          txtPassam = "passa"
+          txtFaltam = "falta"
+          txtMinutos = "minuto"
         if(missingForTimeGoal>0)
-          $("#timelapse").text(timeLapse+" (faltam "+missingForTimeGoal+" minutos para objectivo)")
+          $("#timelapse").text(timeLapse+" ("+txtFaltam+" "+missingForTimeGoal+" "+txtMinutos+" para objectivo)")
           $("#currentTaskContent").removeClass("success")
         else
           if(missingForTimeGoal==0)
             audio = new Audio('http://www.pacdv.com/sounds/applause-sounds/app-5.mp3');
             audio.play();
-          $("#timelapse").text(timeLapse+" (passam "+(-missingForTimeGoal)+" minutos do objectivo)")
+          $("#timelapse").text(timeLapse+ " (" + (-missingForTimeGoal)+" "+txtMinutos+" acima do objectivo)")
           $("#currentTaskContent").addClass("success")
+      else
+        $("#timelapse").text(timeLapse)
 
       $("#toggl").attr("src","current-task.widget/images/Active-19.png");
       if result.substring(3) != $(".thing").text()
