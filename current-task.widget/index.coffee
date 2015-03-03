@@ -46,7 +46,6 @@ style: """
   .success
     background:rgba(0,255,0,0.15)
     -webkit-transition: background-color 2000ms linear;
-
 """
 
 render: (output) ->
@@ -127,6 +126,9 @@ updateStatus: (resultArray) ->
       $("#timelapse").text("")
       $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
       $("#currentTaskContent").removeClass("warning")
+      if( $("#timegoal").text() != "00:00")
+        $("#timelapse").text("(mínimo tempo seguido -> "+ $("#timegoal").text() + ")")
+
     else
       timeGoalT  = new Date('1970-01-01T' + $("#timegoal").text() + ':00Z').getTime() / 60000;
       timeLimitT = new Date('1970-01-01T' + $("#timelimit").text() + ':00Z').getTime() / 60000;
