@@ -1,4 +1,4 @@
-command: "links.widget/lighthouse.sh && links.widget/pivotal_people.sh"
+command: "links.widget/lighthouse.sh"
 
 refreshFrequency: 600000
 
@@ -133,8 +133,3 @@ update: (output, domEl) ->
   table.empty()
   for process, i in processes.slice(0,2)
     table.append "<p>#{process}</p>"
-
-  table     = $('.pivotaltickets')
-  table.empty()
-  for process, i in processes.slice(2)
-    table.append "<p class=\"#{'task' if (process.charCodeAt(0)==32)}\">#{process}</p>"
