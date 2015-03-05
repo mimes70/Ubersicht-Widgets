@@ -6,8 +6,8 @@
    changesServer = ChangesServer();
 -  server = connect().use(connect["static"](path.resolve(__dirname, './public'))).use(WidgetCommandServer(widgetDir)).use(WidgetsServer(widgetDir)).use(changesServer.middleware).use(connect["static"](widgetPath)).listen(port, function() {
 +
-+    var WID = 795785;
-+    var TogglClient = require('toggl-api'), toggl = new TogglClient({apiToken: '5bb060a61d08f401c4d2422925178593'});
++    var WID = XXXXXX;
++    var TogglClient = require('toggl-api'), toggl = new TogglClient({apiToken: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'});
 +
 +    function getEntryByKey(array, key, value, key2, value2) {
 +    	if(!value) return null;

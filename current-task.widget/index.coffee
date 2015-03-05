@@ -46,6 +46,7 @@ style: """
   .success
     background:rgba(0,255,0,0.15)
     -webkit-transition: background-color 2000ms linear;
+
 """
 
 render: (output) ->
@@ -126,9 +127,6 @@ updateStatus: (resultArray) ->
       $("#timelapse").text("")
       $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
       $("#currentTaskContent").removeClass("warning")
-      if( $("#timegoal").text() != "00:00")
-        $("#timelapse").text("(mínimo tempo seguido -> "+ $("#timegoal").text() + ")")
-
     else
       timeGoalT  = new Date('1970-01-01T' + $("#timegoal").text() + ':00Z').getTime() / 60000;
       timeLimitT = new Date('1970-01-01T' + $("#timelimit").text() + ':00Z').getTime() / 60000;
@@ -201,10 +199,12 @@ startToggl: () ->
 serverCode: () ->
     ###
     Para instalar o Ubersicht:
-    1) Download do site: http://tracesof.net/uebersicht/
+    1) Download do site: http://tracesof.net/uebersicht/ e instalar em /Applications
     2) Correr inicialmente inalterado
-    3) Aplicar o patch: ```patch server.js server.patch```
+    3) cd /Applications/Übersicht.app/Contents/Resources
     4) Instalar a dependência do "toggl-api": ```npm install toggl-api```
+    5) Aplicar o patch1: ```patch server.js [path]/server.patch```
+    6) Aplicar o patch2: ```patch server.js [path]/toggl_api_auth.path```
 
     Para criar o patch (originalmente) usar:
     ```diff -u server.original.js server.modified.js > server.patch```
