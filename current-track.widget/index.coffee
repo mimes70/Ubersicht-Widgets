@@ -58,7 +58,7 @@ IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
     	return {activeApp, playerstate}
     end appCheck
 ')" &&
-echo '{ "artist":"'$theArtist'","song": "'$theName'", "id": "'$theId'", "app":"''$theApp"}' || echo "Not Connected To Spotify"
+echo '{ "artist":"'$theArtist'","song": "'$theName'", "id": "'$theId'", "app":"'$theApp'"}' || echo "Not Connected To Spotify"
 """
 
 refreshFrequency: 2000
@@ -104,7 +104,7 @@ getVisual: (output) ->
   catch ex
     return """
       <div class='github-notifications #{if @enterprise then "enterprise" else "public"}'>
-        <span>Error: #{output}</span>
+        <span class="output song">#{output}</span>
       </div>
     """
   return """
