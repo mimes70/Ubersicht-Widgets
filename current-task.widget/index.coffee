@@ -179,6 +179,7 @@ updateStatus: (resultArray) ->
 
 clickReact: () ->
   $("#currentTaskContent").removeClass("warning")
+  $("#currentTaskContent").removeClass("success")
   if $("#toggl").attr("src") == "current-task.widget/images/Active-19.png"
     $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
     $.ajax({url: "/Stop", success: @stopToggl});
