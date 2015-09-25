@@ -16,7 +16,7 @@ do
 
 		RESULT2=""
 		if [ "$USER" == "Mesquita" ]; then
-			URL='https://www.pivotaltracker.com/services/v3/projects/'$PROJECT'/stories?filter=state%3Adelivered'
+			URL='https://www.pivotaltracker.com/services/v3/projects/'$PROJECT'/stories?filter=state%3Adelivered%20-label:%22no_test%22'
 			#idealmente o filtro seria filter=state%3Adelivered%20-label%3Ano_test mas o - não está suportado na api
 			CMD='curl -X GET -H "X-TrackerToken:'$TOKEN'" -H "Content-type:application/xml" '$URL
 			RESULT2=$(eval $CMD" 2>/dev/null | grep '<name>' | sed -e 's/\<\/name/#\</g' | sed -e 's/\<[^\>]*\>//g' | tr -s ' ' | tr -d '\n'")
