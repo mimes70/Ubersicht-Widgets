@@ -1,10 +1,11 @@
---- server.js	2015-01-04 13:23:54.000000000 +0000
-+++ /Applications/Übersicht.app/Contents/Resources/server.js	2015-03-02 09:07:42.000000000 +0000
-@@ -1677,7 +1677,101 @@
-   widgetPath = path.resolve(__dirname, widgetPath);
-   widgetDir = WidgetDir(widgetPath);
-   changesServer = ChangesServer();
--  server = connect().use(connect["static"](path.resolve(__dirname, './public'))).use(WidgetCommandServer(widgetDir)).use(WidgetsServer(widgetDir)).use(changesServer.middleware).use(connect["static"](widgetPath)).listen(port, function() {
+--- server.js	2016-02-23 09:04:18.000000000 +0000
++++ server.js.after	2016-02-23 09:08:14.000000000 +0000
+@@ -259,7 +259,102 @@
+     return settings.persist(store.getState().settings);
+   });
+   messageBus = null;
+-  server = connect().use(CommandServer(widgetPath)).use(StateServer(store)).use(connect["static"](path.resolve(__dirname, './public'))).use(connect["static"](widgetPath)).use(serveClient).listen(port, function() {
++
 +
 +    var WID = XXXXXX;
 +    var TogglClient = require('toggl-api'), toggl = new TogglClient({apiToken: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'});
@@ -79,7 +80,7 @@
 +    }
 +
 +
-+	server = connect().use('/status', function fooMiddleware(req, res, next) {
++	server = connect().use(CommandServer(widgetPath)).use(StateServer(store)).use('/status', function fooMiddleware(req, res, next) {
 +		toggl.getCurrentTimeEntry(function(err, timeEntry) {
 +			if(timeEntry) {
 +				var now = new Date();
@@ -99,7 +100,7 @@
 +				res.end('Stop: '+timeEntry.description);
 +			});
 +		});
-+	}) .use(connect["static"](path.resolve(__dirname, './public'))).use(WidgetCommandServer(widgetDir)).use(WidgetsServer(widgetDir)).use(changesServer.middleware).use(connect["static"](widgetPath)).listen(port, function() {
-     console.log('server started on port', port);
-     return widgetDir.watch(changesServer.push);
-   });
++	}) .use(connect["static"](path.resolve(__dirname, './public'))).use(connect["static"](widgetPath)).use(serveClient).listen(port, function() {
+     messageBus = MessageBus({
+       server: server
+     });
