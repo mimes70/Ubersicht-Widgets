@@ -1,7 +1,7 @@
 options =
   city          : "Lisbon"   # default city in case location detection fails
   units         : 'c'               # c for celcius. f for Fahrenheit
-  staticLocation: false             # set to true to disable autmatic location lookup
+  staticLocation: true             # set to true to disable autmatic location lookup
 
 appearance =
   iconSet       : 'original'        # "original" for the original icons
@@ -122,7 +122,7 @@ renderCurrent: (channel) ->
 
   el = @$domEl.find('.current')
 
-  @$domEl.find('a').attr("href", "https://weather.yahoo.com/portugal/lisbon/lisbon-742676/") #era #{weather.link} mas não funciona
+  @$domEl.find('a').attr("href", "#{weather.link}") 
   el.find('.temperature').text "#{Math.round(weather.condition.temp)}°"
   el.find('.location').text "#{weather.title.substring(weather.title.indexOf("for")+4,weather.title.indexOf(","))}"
   el.find('.text').text weather.condition.text
