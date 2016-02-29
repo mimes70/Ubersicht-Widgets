@@ -16,7 +16,7 @@ do
 
 		RESULT2=""
 		if [ "$USER" == "Mesquita" ]; then
-			URL='https://www.pivotaltracker.com/services/v3/projects/'$PROJECT'/stories?filter=state%3Adelivered%20-label:%22no_test%22'
+			URL='https://www.pivotaltracker.com/services/v3/projects/'$PROJECT'/stories?filter=state%3Adelivered'
 			#idealmente o filtro seria filter=state%3Adelivered%20-label%3Ano_test mas o - não está suportado na api
 			CMD='curl -X GET -H "X-TrackerToken:'$TOKEN'" -H "Content-type:application/xml" '$URL
 			RESULT2=$(eval $CMD" 2>/dev/null | grep '<name>' | sed -e 's/\<\/name/#\</g' | sed -e 's/\<[^\>]*\>//g' | tr -s ' ' | tr -d '\n'")
@@ -25,7 +25,7 @@ do
 			IFS='#'
 			for i in $RESULT2; do
 				if [ -n "$i" ]; then
-					RSLT=$(echo "Testar ${PROJECT_NAME[$PROJ_NUMBER]}: $i" | perl -C -pe 's/&\#(\d+);/chr($1)/ge' )
+					RSLT=$(echo "TEST: ${PROJECT_NAME[$PROJ_NUMBER]} - $i" | perl -C -pe 's/&\#(\d+);/chr($1)/ge' )
 					echo "       $RSLT"
 					TASK=$(echo $RSLT | iconv -t MACROMAN -f UTF8-MAC)
 					export TASK
