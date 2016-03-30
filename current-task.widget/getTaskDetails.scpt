@@ -2,7 +2,9 @@ tell application "System Events" to (name of processes) contains "Things"
 
 if result is true then
   tell application "Things"
-    repeat with theTodo in to dos of list "Today"
+    set OList to to dos of list "Today"
+    set RList to reverse of OList
+    repeat with theTodo in RList
       if status of theTodo is open then exit repeat
     end repeat
 
