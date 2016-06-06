@@ -2,11 +2,9 @@ command: "links.widget/pivotal_people.sh"
 
 refreshFrequency: 1200000
 
-style: """
-"""
-
 
 render: -> """
+      <div/>
 """
 
 update: (output, domEl) ->

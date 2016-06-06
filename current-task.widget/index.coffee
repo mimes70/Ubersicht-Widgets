@@ -3,7 +3,7 @@ IFS='~' read -r theArea theProject theTask theTags theNotes <<<"$(osascript curr
 echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'", "tags": "'$theTags'", "notes": "'$theNotes'"}'
 """
 
-refreshFrequency: 15000
+refreshFrequency: 1000
 
 style: """
   bottom: 11px

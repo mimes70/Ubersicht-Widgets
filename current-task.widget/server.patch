@@ -4,7 +4,7 @@
      return settings.persist(store.getState().settings);
    });
    messageBus = null;
--  server = connect().use(CommandServer(widgetPath)).use(StateServer(store)).use(connect["static"](path.resolve(__dirname, './public'))).use(connect["static"](widgetPath)).use(serveClient).listen(port, function() {
+-  server = connect().use(CommandServer(widgetPath)).use(StateServer(store)).use(connect["static"](path.resolve(__dirname, './public'))).use(connect["static"](widgetPath)).use(serveClient).listen(port, '127.0.0.1', function() {
 +
 +
 +    var WID = XXXXXX;
@@ -100,7 +100,7 @@
 +				res.end('Stop: '+timeEntry.description);
 +			});
 +		});
-+	}) .use(connect["static"](path.resolve(__dirname, './public'))).use(connect["static"](widgetPath)).use(serveClient).listen(port, function() {
++	}) .use(connect["static"](path.resolve(__dirname, './public'))).use(connect["static"](widgetPath)).use(serveClient).listen(port, '127.0.0.1', function() {
      messageBus = MessageBus({
        server: server
      });
