@@ -1,4 +1,4 @@
-command: "links.widget/lighthouse.sh"
+command: "#links.widget/lighthouse.sh"
 
 refreshFrequency: 600000
 
@@ -92,20 +92,6 @@ render: -> """
       <td>
         <a href="https://github.com">
           <img style="width:47px;" src="links.widget/images/github.png">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="http://daytum.com/mimes70">
-          <img style="width:32px;margin-left:7px" src="links.widget/images/daytum.png">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="https://andyet.talky.io/cob">
-          <img style="width:32px;margin-left:7px" src="links.widget/images/talky.png">
         </a>
       </td>
     </tr>
