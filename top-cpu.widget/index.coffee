@@ -5,7 +5,7 @@ refreshFrequency: 20000
 style: """
   bottom: 17px
   right: 17px
-  color: #fff
+  color: rgba(255,255,255,0.35)
   font-family: Helvetica Neue
 
   table
@@ -16,7 +16,7 @@ style: """
     background: rgba(#f00, 0.4)
 
   td
-    border: 1px solid #fff
+    border: 1px solid rgba(255,255,255,0.1)
     font-size: 24px
     font-weight: 100
     width: 110px
@@ -27,7 +27,7 @@ style: """
   .wrapper
     padding: 4px 6px 4px 6px
     position: relative
-    background: rgba(#fff, 0.1)
+    background: rgba(#fff, 0)
 
   p
     padding: 0
@@ -35,7 +35,7 @@ style: """
     font-size: 11px
     font-weight: normal
     max-width: 100%
-    color: #ddd
+    color: rgba(255,255,255,0.35)
     text-overflow: ellipsis
     text-shadow: none
 

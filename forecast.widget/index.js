@@ -5,8 +5,8 @@ style: '@charset "UTF-8"; #forecast-widget-index-js {   bottom: 90px;   right: -
     // To get your own API key, go to https://developer.forecast.io/                    #
     api_key: '9c4dda3ec3a895232661210bef8c0753', // Put your Forcast.io api key inside the quotes here          #
     refresh_rate: 300000, // Time in milliseconds between refreshes                     #
-    lat: '39.592106', // Options are auto, or a valid latitude (auto doesn't always work)    #
-    lon: '-8.5163717', // Options are auto, or a valid longitude (auto doesn't always work)   #
+    lat: '38.7471569', // Options are auto, or a valid latitude (auto doesn't always work)    #
+    lon: '-9.1442295', // Options are auto, or a valid longitude (auto doesn't always work)   #
     units: 'si', // Options are us, si, ca, uk, auto                                  #
     onclick_link: 'http://www.wunderground.com', // Link to open when widget is clocked #
     // ################################## END SETTINGS ##################################
