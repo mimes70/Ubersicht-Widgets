@@ -3,7 +3,7 @@ IFS='~' read -r theArea theProject theTask theTags theNotes <<<"$(osascript curr
 echo '{ "area":"'$theArea'","project": "'$theProject'", "task": "'$theTask'", "tags": "'$theTags'", "notes": "'$theNotes'"}'
 """
 
-refreshFrequency: 1000
+refreshFrequency: 3000
 
 style: """
   bottom: 11px
@@ -51,28 +51,6 @@ style: """
 
 render: (output) ->
     return """
-      <script>
-        $(document).ready(function(){
-          $.ajax({url: "/Status", success: function(result){
-              if(result == "On") {
-                $("#toggl").attr("src","current-task.widget/images/Active-19.png");
-              } else {
-                $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
-              }
-          }});
-          $("#toggl").click(function(){
-              if( $("#toggl").attr("src") == "current-task.widget/images/Active-19.png") {
-                $.ajax({url: "/Stop", success: function(result){
-                    $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
-                }});
-              } else {
-                $.ajax({url: "/Start", success: function(result){
-                    $("#toggl").attr("src","current-task.widget/images/Active-19.png");
-                }});
-              }
-          });
-        });
-      </script>
       <div id="currentTaskContent">
         <p id="timelapse"/>
         <p id="timegoal"style="display:none"/>
@@ -123,8 +101,11 @@ updateStatus: (resultArray) ->
     result = tmp[0]
     timeLapse = tmp[1]
 
+    if($("#toggl").hasClass("stopUpdate")) #Não actualizar de depois deste pedido ter sido feito se houve uma mudança de estado. Esperar conclusão da mudança
+      return;
+
     if result == "Off"
-      $("#timelapse").text("")
+      $("#timelapse").text("");
       $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
       $("#currentTaskContent").removeClass("warning")
     else
@@ -178,23 +159,21 @@ updateStatus: (resultArray) ->
         $("#currentTaskContent").removeClass("warning")
 
 clickReact: () ->
+  resumeUpdate = () ->
+	  $("#toggl").removeClass("stopUpdate"); 
+
   $("#currentTaskContent").removeClass("warning")
   $("#currentTaskContent").removeClass("success")
   if $("#toggl").attr("src") == "current-task.widget/images/Active-19.png"
     $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
-    $.ajax({url: "/Stop", success: @stopToggl});
+    $("#toggl").addClass("stopUpdate");
+    $.ajax({url: "/Stop", success: resumeUpdate});
   else
     $("#toggl").attr("src","current-task.widget/images/Active-19.png");
     task = $(".thing").text();
     project = $(".project").text();
     area = $(".area").text();
     url = "/Start/"+encodeURIComponent(area)+"/"+encodeURIComponent(project)+"/"+encodeURIComponent(task)
-    $.ajax({url: url, success: @startToggl});
+    $("#toggl").addClass("stopUpdate");
+    $.ajax({url: url, success: resumeUpdate});
 
-stopToggl: () ->
-
-
-startToggl: () ->
-
-
-serverCode: () ->
