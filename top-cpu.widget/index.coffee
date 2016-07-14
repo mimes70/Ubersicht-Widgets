@@ -1,6 +1,6 @@
-command: "ps axro \"pid, %cpu, ucomm\" | awk 'FNR>1' | head -n 2 | awk '{ printf \"%5.1f%%,%s,%s\\n\", $2, $3, $1}'  && ps aux  | awk 'BEGIN { sum = 0 }  { sum += $3 }; END { print sum }' && sysctl hw.ncpu | awk '{print $2}'"
+command: "ps axro \"pid, %cpu, ucomm\" | awk 'FNR>1' | sort -r | awk 'BEGIN { sum = 0 }  { sum += $2 }; END { printf \"%5.1f%%,%s,%s\\n\", $2, $3, $1; print sum }' && sysctl hw.ncpu | awk '{print $2}'"
 
-refreshFrequency: 20000
+refreshFrequency: 9000
 
 style: """
   bottom: 17px
