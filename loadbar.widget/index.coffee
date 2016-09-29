@@ -1,5 +1,5 @@
 command: "sysctl -n vm.loadavg|awk '{print $2}'"
-refreshFrequency: 2500
+refreshFrequency: 9500
 render: (_) -> """
   <progress class='bar' value='0' max='6'></progress>
 """

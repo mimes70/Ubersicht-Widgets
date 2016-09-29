@@ -61,7 +61,7 @@ IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
 echo '{ "artist":"'$theArtist'","song": "'$theName'", "id": "'$theId'", "app":"'$theApp'"}' || echo "Not Connected To Spotify"
 """
 
-refreshFrequency: 2000
+refreshFrequency: 4000
 
 style: """
   bottom: 12px

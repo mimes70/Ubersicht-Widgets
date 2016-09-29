@@ -1,6 +1,6 @@
 command: "ps axmo \"pid, %mem, ucomm\" | awk 'FNR>1' | head -n 2 | awk '{ printf \"%5.1f%%,%s,%s\\n\", $2, $3, $1}' && memory_pressure | grep 'free percentage' | awk '{print substr($5, 0, length($5)-1)}'"
 
-refreshFrequency: 20000
+refreshFrequency: 9000
 
 style: """
   bottom: 17px
