@@ -31,9 +31,9 @@ do
 					export TASK
 
 					APPSCPTRSLT="$(osascript <<<'
-						tell application "Things"
+						tell application "Things3"
 							set TASK to system attribute "TASK"
-							set todayToDos to to dos of list "Next"
+							set todayToDos to to dos of list "Anytime" & to dos of list "Inbox"
 							set flagCreate to true
 							repeat with todayToDo in todayToDos
 								if name of todayToDo is TASK then

@@ -1,6 +1,6 @@
 command: "#links.widget/lighthouse.sh"
 
-refreshFrequency: 600000
+refreshFrequency: 6000000
 
 style: """
   top: 15px
