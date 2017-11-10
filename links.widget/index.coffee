@@ -109,6 +109,13 @@ render: -> """
         </a>
       </td>
     </tr>
+    <tr>
+      <td>
+        <a href="http://bestof.js.org/">
+          <img style="width:32px;margin-left:7px" src="links.widget/images/bestofjs.png">
+        </a>
+      </td>
+    </tr>
   </table>
 """
 
