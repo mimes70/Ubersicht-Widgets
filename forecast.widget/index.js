@@ -3,7 +3,7 @@ style: '@charset "UTF-8"; #forecast-widget-index-js {   bottom: 90px;   right: -
 
     // ################################# BEGIN SETTINGS #################################
     // To get your own API key, go to https://developer.forecast.io/                    #
-    api_key: '610119bc2cca15aa5e078e3fda1f608b', // Put your Forcast.io api key inside the quotes here          #
+    api_key: '3618d2c19f2d2ecd2b82fc542822d37e', // Put your Forcast.io api key inside the quotes here          #
     refresh_rate: 600000, // Time in milliseconds between refreshes                     #
     lat: '38.7471569', // Options are auto, or a valid latitude (auto doesn't always work)    #
     lon: '-9.1442295', // Options are auto, or a valid longitude (auto doesn't always work)   #
