@@ -90,6 +90,13 @@ render: -> """
     </tr>
     <tr>
       <td>
+        <a href="https://www.evernote.com/Home.action">
+          <img style="padding:9px;width:32px;" src="links.widget/images/Evernote.png">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <a href="https://github.com">
           <img style="width:47px;" src="links.widget/images/github.png">
         </a>
@@ -113,6 +120,13 @@ render: -> """
       <td>
         <a href="http://bestof.js.org/">
           <img style="width:32px;margin-left:7px" src="links.widget/images/bestofjs.png">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?p1=776&p2=146&p3=138&p4=141&p5=133&p6=233&p7=41">
+          <img style="width:32px;margin-left:7px" src="links.widget/images/timeanddate.png">
         </a>
       </td>
     </tr>

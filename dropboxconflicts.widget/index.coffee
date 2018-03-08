@@ -1,7 +1,4 @@
-command: "find /Volumes/Macintosh\\ HD\\ 2/Dropbox/ -name '*onflicted*'"
-
-#ligação à lidl?: netstat -an| grep "2345" | grep LISTEN | say -v Joana
-#verificação de mudança de IPs: dig app.chooseyouroutfit.com | grep "54.165.242.4" &&  say -v Joana "IP alterado" || ( echo "Not Yet"; False )
+command: "find /Volumes/SSDZINHO/Users/miguelmesquita/Dropbox/ -name '*onflicted*'"
 
 refreshFrequency: 60000
 

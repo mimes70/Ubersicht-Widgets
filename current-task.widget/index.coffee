@@ -19,8 +19,10 @@ style: """
   text-decoration: none
   color:white
 
-  p
+  .area, .project, .thing
     margin:0px
+    color:white
+    text-decoration: none
 
   #currentTaskContent
     padding:5px
@@ -57,9 +59,9 @@ render: (output) ->
         <p id="timelimit"style="display:none"/>
         <div>
             <img id="toggl" style="vertical-align:3%" src="current-task.widget/images/Inactive-19.png"/>
-            <p class="thing"/>
-            <p class="project"/>
-            <p class="area"/>
+            <br/> <a class="thing">thing</a>
+            <br/> <a class="project">project</a>
+            <br/> <a class="area">area</a>
         </div>
       </div>
     """
@@ -72,8 +74,11 @@ update: (output, domEl) ->
     $(".area").text("Error Parsing JSON response: #{output}");
 
   $(".thing").text(data.task);
+  $(".thing").attr("href","things:///show?id=today");
   $(".project").text(data.project);
+  $(".project").attr("href","things:///show?query="+data.project);
   $(".area").text(data.area);
+  $(".area").attr("href","things:///show?query="+data.area);
 
   tg = /\[TimeGoal:\s*([^\]]*)\]/.exec(data.notes);
   if(tg)
@@ -160,7 +165,7 @@ updateStatus: (resultArray) ->
 
 clickReact: () ->
   resumeUpdate = () ->
-	  $("#toggl").removeClass("stopUpdate"); 
+	  $("#toggl").removeClass("stopUpdate");
 
   $("#currentTaskContent").removeClass("warning")
   $("#currentTaskContent").removeClass("success")
@@ -176,4 +181,3 @@ clickReact: () ->
     url = "/Start/"+encodeURIComponent(area)+"/"+encodeURIComponent(project)+"/"+encodeURIComponent(task)
     $("#toggl").addClass("stopUpdate");
     $.ajax({url: url, success: resumeUpdate});
-
