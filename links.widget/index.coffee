@@ -1,4 +1,4 @@
-command: "#links.widget/lighthouse.sh"
+command: "links.widget/pivotal_people.sh"
 
 refreshFrequency: 6000000
 
@@ -33,6 +33,8 @@ style: """
   .tickets
     border-bottom-style: solid;
     border-bottom-width: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;
     border-bottom-color: rgba(#fff, 0.3)
     //background-color:rgba(0,0,0,0.3);
     border-radius: 4px;
@@ -66,11 +68,9 @@ render: -> """
   <table>
     <tr>
       <td>
-        <a href="https://cob.lighthouseapp.com/dashboard">
-          <img style="width:36px;margin-left:6px" src="links.widget/images/lighthouse.png">
-          </a>
-      </td>
-      <td class="tickets lighthousetickets">
+        <a href="https://dogfooding.cultofbits.com">
+          <div class="logoCoB">  <div class="symbolCoB">*</div>  </div>
+        </a>
       </td>
     </tr>
     <tr>
@@ -80,13 +80,6 @@ render: -> """
         </a>
       </td>
       <td class="tickets pivotaltickets">
-    </tr>
-    <tr>
-      <td>
-        <a href="https://dogfooding.cultofbits.com">
-          <div class="logoCoB">  <div class="symbolCoB">*</div>  </div>
-        </a>
-      </td>
     </tr>
     <tr>
       <td>
@@ -125,7 +118,7 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?p1=776&p2=146&p3=138&p4=141&p5=133&p6=233&p7=41">
+        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?iso=20180426&p1=776&p2=146&p3=141&p4=138&p5=133&p6=233&p7=41&p8=155">
           <img style="width:32px;margin-left:7px" src="links.widget/images/timeanddate.png">
         </a>
       </td>
@@ -136,7 +129,7 @@ render: -> """
 update: (output, domEl) ->
   processes = output.split('\n')
 
-  table     = $('.lighthousetickets')
+  table     = $('.pivotaltickets')
   table.empty()
-  for process, i in processes.slice(0,2)
-    table.append "<p>#{process}</p>"
+  for process, i in processes
+    table.append "<p class=\"#{'task' if (process.charCodeAt(0)==32)}\">#{process}</p>"
