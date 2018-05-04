@@ -118,7 +118,7 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?iso=20180426&p1=776&p2=146&p3=141&p4=138&p5=133&p6=233&p7=41&p8=155">
+        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?p1=776&p2=146&p3=141&p4=138&p5=133&p6=233&p7=41&p8=155">
           <img style="width:32px;margin-left:7px" src="links.widget/images/timeanddate.png">
         </a>
       </td>
