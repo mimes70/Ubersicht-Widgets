@@ -115,6 +115,20 @@ render: -> """
         </a>
       </td>
     </tr>
+    <tr>
+      <td>
+        <a href="https://my.shelly.cloud/#dashboard">
+          <img style="width:32px;margin-left:7px" src="links.widget/images/shelly.png">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://alexa.amazon.com/spa/index.html">
+          <img style="width:32px;margin-left:7px" src="links.widget/images/Alexa.png">
+        </a>
+      </td>
+    </tr>
   </table>
 """
 

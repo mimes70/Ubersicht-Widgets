@@ -54,11 +54,11 @@ style: """
 render: (output) ->
     return """
       <div id="currentTaskContent">
-        <p id="timelapse"/>
-        <p id="timegoal"style="display:none"/>
-        <p id="timelimit"style="display:none"/>
+        <!-- p id="timelapse"/-->
+        <!-- p id="timegoal"style="display:none"/-->
+        <!-- p id="timelimit"style="display:none"/-->
         <div>
-            <img id="toggl" style="vertical-align:3%" src="current-task.widget/images/Inactive-19.png"/>
+            <!--img id="toggl" style="vertical-align:3%" src="current-task.widget/images/Inactive-19.png"/-->
             <br/> <a class="thing">thing</a>
             <br/> <a class="project">project</a>
             <br/> <a class="area">area</a>
@@ -100,84 +100,4 @@ update: (output, domEl) ->
 
 
 updateStatus: (resultArray) ->
-    NUMERO_MINUTOS_COM_ALARME = 5
-    NUMERO_MINUTOS_PRE_AVISO = 5
-    tmp = resultArray.split('\n')
-    result = tmp[0]
-    timeLapse = tmp[1]
 
-    if($("#toggl").hasClass("stopUpdate")) #Não actualizar de depois deste pedido ter sido feito se houve uma mudança de estado. Esperar conclusão da mudança
-      return;
-
-    if result == "Off"
-      $("#timelapse").text("");
-      $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
-      $("#currentTaskContent").removeClass("warning")
-    else
-      timeGoalT  = new Date('1970-01-01T' + $("#timegoal").text() + ':00Z').getTime() / 60000;
-      timeLimitT = new Date('1970-01-01T' + $("#timelimit").text() + ':00Z').getTime() / 60000;
-      timeLapseT = new Date('1970-01-01T' + timeLapse + ':00Z').getTime() / 60000;
-      txtPassam = "passam"
-      txtFaltam = "faltam"
-      txtMinutos = "minutos"
-
-      missingForTimeLimit = timeLimitT - timeLapseT
-      missingForTimeGoal  = timeGoalT - timeLapseT
-
-
-      $("#currentTaskContent").removeClass("success")
-      $("#timelapse").removeClass("warning")
-      if(timeLimitT && missingForTimeLimit<NUMERO_MINUTOS_PRE_AVISO)
-        if(missingForTimeLimit==-1 || missingForTimeLimit==1)
-          txtPassam = "passa"
-          txtFaltam = "falta"
-          txtMinutos = "minuto"
-        if(missingForTimeLimit<=0)
-          $("#timelapse").text(timeLapse+" ("+txtPassam+" "+(-missingForTimeLimit)+" "+txtMinutos+" do limite)")
-          if(missingForTimeLimit>-NUMERO_MINUTOS_COM_ALARME)
-            audio = new Audio('http://www.storiesinflight.com/html5/audio/flute_c_long_01.wav');
-            audio.play();
-        else
-          $("#timelapse").text(timeLapse+" ("+txtFaltam+" "+(missingForTimeLimit)+" "+txtMinutos+" para o limite)")
-        $("#timelapse").addClass("warning")
-      else if(timeGoalT)
-        if(missingForTimeGoal==-1 || missingForTimeGoal==1)
-          txtPassam = "passa"
-          txtFaltam = "falta"
-          txtMinutos = "minuto"
-        if(missingForTimeGoal>0)
-          $("#timelapse").text(timeLapse+" ("+txtFaltam+" "+missingForTimeGoal+" "+txtMinutos+" para objectivo)")
-          $("#currentTaskContent").removeClass("success")
-        else
-          if(missingForTimeGoal==0)
-            audio = new Audio('http://www.pacdv.com/sounds/applause-sounds/app-5.mp3');
-            audio.play();
-          $("#timelapse").text(timeLapse+ " (" + (-missingForTimeGoal)+" "+txtMinutos+" acima do objectivo)")
-          $("#currentTaskContent").addClass("success")
-      else
-        $("#timelapse").text(timeLapse)
-
-      $("#toggl").attr("src","current-task.widget/images/Active-19.png");
-      if result.substring(3) != $(".thing").text()
-        $("#currentTaskContent").addClass("warning")
-      else
-        $("#currentTaskContent").removeClass("warning")
-
-clickReact: () ->
-  resumeUpdate = () ->
-	  $("#toggl").removeClass("stopUpdate");
-
-  $("#currentTaskContent").removeClass("warning")
-  $("#currentTaskContent").removeClass("success")
-  if $("#toggl").attr("src") == "current-task.widget/images/Active-19.png"
-    $("#toggl").attr("src","current-task.widget/images/Inactive-19.png");
-    $("#toggl").addClass("stopUpdate");
-    $.ajax({url: "/Stop", success: resumeUpdate});
-  else
-    $("#toggl").attr("src","current-task.widget/images/Active-19.png");
-    task = $(".thing").text();
-    project = $(".project").text();
-    area = $(".area").text();
-    url = "/Start/"+encodeURIComponent(area)+"/"+encodeURIComponent(project)+"/"+encodeURIComponent(task)
-    $("#toggl").addClass("stopUpdate");
-    $.ajax({url: url, success: resumeUpdate});

@@ -1,5 +1,5 @@
 command: """
-read -r running <<<"$(ps -ef | grep \"MacOS/Spotify\" | grep -v \"grep\" | wc -l)" &&
+read -r running <<<"$(ps -ef | grep -e \"MacOS/Spotify\\|iTunes.app/Contents/MacOS/iTunes\$\" | grep -v \"grep\" | wc -l)" &&
 test $running != 0 &&
 IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
     global aname, tname, alname, rate
@@ -58,7 +58,7 @@ IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
     	return {activeApp, playerstate}
     end appCheck
 ')" &&
-echo '{ "artist":"'$theArtist'","song": "'$theName'", "id": "'$theId'", "app":"'$theApp'"}' || echo "Not Connected To Spotify"
+echo '{ "artist":"'$theArtist'","song": "'$theName'", "id": "'$theId'", "app":"'$theApp'"}' || echo "Spotify & iTunes Closed"
 """
 
 refreshFrequency: 4000

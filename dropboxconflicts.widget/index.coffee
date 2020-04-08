@@ -1,4 +1,4 @@
-command: "find /Volumes/SSDZINHO/Users/miguelmesquita/Dropbox/ -name '*onflicted*'"
+command: "find /Volumes/Macintosh\\ HD/Users/mimes/Dropbox/ -name '*onflicted*'"
 
 refreshFrequency: 60000
 
