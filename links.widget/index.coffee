@@ -1,4 +1,4 @@
-command: "links.widget/pivotal_people.sh"
+command: ""
 
 refreshFrequency: 6000000
 
@@ -75,14 +75,6 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="https://www.pivotaltracker.com/n/workspaces/111914">
-          <img style="width:36px;margin-left:5px" src="links.widget/images/pivotaltracker.png">
-        </a>
-      </td>
-      <td class="tickets pivotaltickets">
-    </tr>
-    <tr>
-      <td>
         <a href="https://www.evernote.com/Home.action">
           <img style="padding:9px;width:32px;" src="links.widget/images/Evernote.png">
         </a>
@@ -97,15 +89,15 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="http://devdocs.io/">
-          <img style="width:32px;margin-left:7px" src="links.widget/images/html5.png">
+        <a href="http://gitlab.com/">
+          <img style="width:32px;margin-left:7px" src="links.widget/images/gitlab.svg">
         </a>
       </td>
     </tr>
     <tr>
       <td>
         <a href="https://www.cgd.pt/Pages/Default.aspx">
-          <img class="cgd" style="width:28px;margin-left:7px" src="links.widget/images/cgd.gif">
+          <img class="cgd" style="width:28px;margin-left:7px" src="links.widget/images/cgd.png">
         </a>
       </td>
     </tr>
@@ -118,7 +110,7 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?p1=776&p2=146&p3=141&p4=138&p5=133&p6=233&p7=41&p8=155">
+        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?iso=20200408&p1=214&p2=146&p3=141&p4=138&p5=133&p6=233&p7=41">
           <img style="width:32px;margin-left:7px" src="links.widget/images/timeanddate.png">
         </a>
       </td>
