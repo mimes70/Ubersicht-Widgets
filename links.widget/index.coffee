@@ -110,7 +110,7 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?iso=20200408&p1=214&p2=146&p3=141&p4=138&p5=133&p6=233&p7=41">
+        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?p1=214&p2=146&p3=141&p4=138&p5=133&p6=233&p7=41">
           <img style="width:32px;margin-left:7px" src="links.widget/images/timeanddate.png">
         </a>
       </td>
@@ -125,7 +125,7 @@ render: -> """
     <tr>
       <td>
         <a href="https://alexa.amazon.com/spa/index.html">
-          <img style="width:32px;margin-left:7px" src="links.widget/images/Alexa.png">
+          <img style="width:32px;margin-left:7px" src="links.widget/images/alexa.png">
         </a>
       </td>
     </tr>
