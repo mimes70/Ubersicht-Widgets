@@ -1,5 +1,5 @@
 command: """
-read -r running <<<"$(ps -ef | grep -e \"MacOS/Spotify\\|iTunes.app/Contents/MacOS/iTunes$\" | grep -v \"grep\" | wc -l)" &&
+read -r running <<<"$(ps -ef | grep -e \"MacOS/Spotify\\|iTunes.app/Contents/MacOS/iTunes\" | grep -v \"grep\\|iTunesHelper\" | wc -l)" &&
 test $running != 0 &&
 IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
     global aname, tname, alname, rate
