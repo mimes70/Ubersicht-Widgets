@@ -131,7 +131,7 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="zoommtg://zoom.us/start?confno=668244305&zc=0">
+        <a href="zoommtg://zoom.us/join?confno=668244305&zc=2&browser=chrome&uname=Miguel">
           <img style="width:32px;margin-left:7px" src="links.widget/images/zoom.us.png">
         </a>
       </td>
