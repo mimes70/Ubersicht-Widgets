@@ -136,6 +136,13 @@ render: -> """
         </a>
       </td>
     </tr>
+    <tr>
+      <td>
+        <a href="vnc://192.168.33.2">
+          <img style="width:32px;margin-left:7px" src="https://cdn-stack.compsmag.com/alternative/wp-content/uploads/sites/28/2020/05/screens_88019.png">
+        </a>
+      </td>
+    </tr>
   </table>
 """
 
