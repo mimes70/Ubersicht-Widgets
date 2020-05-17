@@ -143,6 +143,13 @@ render: -> """
         </a>
       </td>
     </tr>
+    <tr>
+      <td>
+        <a href="https://portal.eu.lidl.com/vpn/index.html">
+          <img style="width:32px;margin-left:7px" src="https://res-3.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_120,w_120,f_auto,b_white,q_auto:eco/49f34540da856c90142c">
+        </a>
+      </td>
+    </tr>
   </table>
 """
 
