@@ -107,6 +107,11 @@ render: -> """
           <img style="width:32px;margin-left:7px" src="links.widget/images/bestofjs.png">
         </a>
       </td>
+      <td>
+        <a href="https://nodejs.libhunt.com">
+          <img style="width:32px;margin-left:7px" src="links.widget/images/AwesomeJS.png">
+        </a>
+      </td>
     </tr>
     <tr>
       <td>
