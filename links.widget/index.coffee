@@ -155,6 +155,13 @@ render: -> """
         </a>
       </td>
     </tr>
+    <tr>
+      <td>
+        <a href="https://mimes8.cultofbits.com/recordm/index.html#/definitions/12/q=*&av=4">
+          <div class="logoCoB">  <div class="symbolCoB">*</div>  </div>
+        </a>
+      </td>
+    </tr>
   </table>
 """
 
