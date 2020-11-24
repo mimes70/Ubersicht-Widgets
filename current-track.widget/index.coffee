@@ -42,7 +42,7 @@ IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
     			set activeApp to (i as string)
     			using terms from application "iTunes"
     				tell application i
-    					if player state is playing then
+    					if playerstate is playing then
     						set playerstate to "Playing"
     						exit repeat
     					else
@@ -50,7 +50,7 @@ IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
     						--exit repeat
     					end if
     				end tell
-    			end using terms from
+    			end using terms fromsx
     		else
     			set activeApp to ""
     		end if
