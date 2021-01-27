@@ -107,15 +107,10 @@ render: -> """
           <img style="width:32px;margin-left:7px" src="links.widget/images/bestofjs.png">
         </a>
       </td>
-      <td>
-        <a href="https://nodejs.libhunt.com">
-          <img style="width:32px;margin-left:7px" src="links.widget/images/AwesomeJS.png">
-        </a>
-      </td>
     </tr>
     <tr>
       <td>
-        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?p1=214&p2=146&p3=141&p4=138&p5=133&p6=233&p7=41">
+        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?p1=214&p2=146&p3=141&p4=138&p5=133&p6=233&p7=179&p8=41">
           <img style="width:32px;margin-left:7px" src="links.widget/images/timeanddate.png">
         </a>
       </td>
