@@ -47,7 +47,7 @@ style: """
     font-size: 26px
     color:white
     text-decoration: none
-    margin-left: 15px
+    margin-left: 10px
 
   .link
     color:white
