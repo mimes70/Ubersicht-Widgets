@@ -3,8 +3,8 @@ command: ""
 refreshFrequency: 6000000
 
 style: """
-  top: 15px
-  left: 9px
+  top: 0px
+  left: 0px
   color: #fff
   font-family: Helvetica Neue
   border-radius: 10px;
@@ -75,13 +75,6 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="https://www.evernote.com/Home.action">
-          <img style="padding:9px;width:32px;" src="links.widget/images/Evernote.png">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>
         <a href="https://github.com">
           <img style="width:47px;" src="links.widget/images/github.png">
         </a>
@@ -103,29 +96,8 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="http://bestof.js.org/">
-          <img style="width:32px;margin-left:7px" src="links.widget/images/bestofjs.png">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="https://www.timeanddate.com/worldclock/meetingtime.html?p1=214&p2=146&p3=141&p4=138&p5=133&p6=233&p7=179&p8=41">
-          <img style="width:32px;margin-left:7px" src="links.widget/images/timeanddate.png">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>
         <a href="https://my.shelly.cloud/#dashboard">
           <img style="width:32px;margin-left:7px" src="links.widget/images/shelly.png">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="https://alexa.amazon.com/spa/index.html">
-          <img style="width:32px;margin-left:7px" src="links.widget/images/alexa.png">
         </a>
       </td>
     </tr>
@@ -138,25 +110,10 @@ render: -> """
     </tr>
     <tr>
       <td>
-        <a href="https://portal.eu.lidl.com/vpn/index.html">
-          <img style="width:32px;margin-left:7px" src="https://res-3.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_120,w_120,f_auto,b_white,q_auto:eco/49f34540da856c90142c">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="https://mimes8.cultofbits.com/recordm/index.html#/definitions/12/q=*&av=4">
+        <a href="https://mimes.cultofbits.com/recordm/index.html#/cob.custom-resource/Dia a Dia/dash">
           <div class="logoCoB">  <div class="symbolCoB">*</div>  </div>
         </a>
       </td>
     </tr>
   </table>
 """
-
-update: (output, domEl) ->
-  processes = output.split('\n')
-
-  table     = $('.pivotaltickets')
-  table.empty()
-  for process, i in processes
-    table.append "<p class=\"#{'task' if (process.charCodeAt(0)==32)}\">#{process}</p>"

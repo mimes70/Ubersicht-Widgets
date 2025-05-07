@@ -1,30 +1,19 @@
 command: """
-read -r running <<<"$(ps -ef | grep -e \"MacOS/Spotify\\|iTunes.app/Contents/MacOS/iTunes\" | grep -v \"grep\\|iTunesHelper\" | wc -l)" &&
+read -r running <<<"$(ps -ef | grep -e \"/System/Applications/Music.app/Contents/MacOS/Music\" | wc -l)" &&
 test $running != 0 &&
 IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
     global aname, tname, alname, rate
 
-    set musicapp to item 1 of my appCheck()
-    set playerstate to item 2 of my appCheck()
-
-    --return musicapp
+    set musicapp to "Music"
+    set playerstate to "Playing"
 
     try
     	if musicapp is not "" then
-    		--if playerstate is not "Paused"
-    		if musicapp is "iTunes" then
-    			tell application "iTunes"
-    				set {tname, aname, tid} to {name, artist, id} of current track
-    				set tpos to player position
-    			end tell
-    		else if musicapp is "Spotify" then
-    			tell application "Spotify"
-    				set {tname, aname, tid} to {name, artist, id} of current track
-    				set tpos to player position
-    			end tell
-    		end if
+        tell application "Music"
+          set {tname, aname, tid} to {name, artist, id} of current track
+          set tpos to player position
+        end tell
     		return aname & "|" & tname & "|" & tid & "|" & musicapp
-    		--end if
     	else
     		return "NA" & "|" & "NA" & "|" & "NA" & "|" & "NA" & "| " & "NA" & "|" & "NA" & "|" & "NA"
     	end if
@@ -32,40 +21,15 @@ IFS='|' read -r theArtist theName theId theApp <<<"$(osascript <<<'
     	return e
     end try
 
-    on appCheck()
-    	set apps to {"iTunes", "Spotify"}
-    	set playerstate to {}
-    	set activeApp to {}
-    	repeat with i in apps
-    		tell application "System Events" to set state to (name of processes) contains i
-    		if state is true then
-    			set activeApp to (i as string)
-    			using terms from application "iTunes"
-    				tell application i
-    					if playerstate is playing then
-    						set playerstate to "Playing"
-    						exit repeat
-    					else
-    						set playerstate to "Paused"
-    						--exit repeat
-    					end if
-    				end tell
-    			end using terms fromsx
-    		else
-    			set activeApp to ""
-    		end if
-    	end repeat
-    	return {activeApp, playerstate}
-    end appCheck
 ')" &&
-echo '{ "artist":"'$theArtist'","song": "'$theName'", "id": "'$theId'", "app":"'$theApp'"}' || echo "Spotify & iTunes Closed"
+echo '{ "artist":"'$theArtist'","song": "'$theName'", "id": "'$theId'", "app":"'$theApp'"}' || echo "Music.app Closed"
 """
 
 refreshFrequency: 4000
 
 style: """
-  bottom: 12px
-  left: 17px
+  bottom: 0px
+  left: 10px
   color: #fff
 
   .output
@@ -83,11 +47,13 @@ style: """
     font-size: 26px
     color:white
     text-decoration: none
+    margin-left: 15px
 
   .link
     color:white
     font-size: 15px
     text-decoration: none
+    margin-left: 5px
 
 """
 
@@ -109,9 +75,8 @@ getVisual: (output) ->
     """
   return """
       <div class="output">
-        <a href="spotify:search:#{data.artist}" class="artist">#{data.artist}</a>
-        <br/>
-        <a href="#{data.id}" class="song">#{data.song}</a>
-        <a href="spotify:" class="link">↩︎</a>
+        <a href="music://music.apple.com/pt/search?term=#{data.artist}" class="artist">#{data.artist}</a>
+        <a href="music://music.apple.com/pt/search?term='#{data.song}' #{data.artist}" class="song">#{data.song}</a>
+        <a href="music://" class="link">↩︎</a>
       </div>
   """
